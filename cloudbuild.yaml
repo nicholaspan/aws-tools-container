@@ -1,0 +1,19 @@
+steps:
+
+# Build the image
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'build-image'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/binauthz-tools-panick:$COMMIT_SHA', '.']
+
+# Push the image to container repository
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'push-image'
+  args: ['push', 'gcr.io/$PROJECT_ID/binauthz-tools-panick:$COMMIT_SHA']
+
+# Run some AWS commands
+- name: 'gcr.io/bkauf-cloud-build'
+  id: 'push-image'
+  args: ['push', 'gcr.io/$PROJECT_ID/binauthz-tools-panick:$COMMIT_SHA']
+
+images:
+- gcr.io/$PROJECT_ID/binauthz-tools-panick:$COMMIT_SHA
